@@ -1,39 +1,23 @@
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 
-public class GestorDeContato extends Pessoa {
-    public GestorDeContato(){
-        
+public class GestorDeContato {
+    private List<Cliente> clientesRegistradosParaEmails;
+
+    public GestorDeContato(List<Cliente> clientesRegistradosParaEmails) {
+        this.clientesRegistradosParaEmails = clientesRegistradosParaEmails;
     }
 
-    ArrayList<Cliente> clientes = new ArrayList<>();
-
-    public void adicionarCliente(Cliente cliente) {
-        System.out.println("------------------------------ \n");
-        System.out.println("Cliente " + cliente.getNome() + " adicionado! \n");
-        this.clientes.add(cliente);
+    public List<Cliente> getClientesRegistradosParaEmails() {
+        return clientesRegistradosParaEmails;
     }
 
-    public void removerCliente(String nome) {
-        Iterator<Cliente> iterator = clientes.iterator();
-        while (iterator.hasNext()) {
-            Cliente cliente = iterator.next();
-            if (cliente.getNome().equalsIgnoreCase(nome)) {
-                System.out.println("Excluindo cliente...");
-                iterator.remove();
-            }
-        }
+    public void enviarEmailPromocional(Cliente cliente, String mensagem) {
+        // Lógica para enviar um email promocional para o cliente
+        System.out.println("Enviando email promocional para " + cliente.getNome() + ": " + mensagem);
     }
 
-    public void enviarEmails() {
-        for (Cliente c : clientes) {
-            if (c.getReceptorDeEmail()) {
-                 System.out.println("------------------------------ \n");
-                System.out.println("Enviando email para: " + c.getNome());
-            } else {
-                System.out.println("------------------------------ \n");
-                System.out.println("Sem clientes para enviar e-mails!");
-            }
-        }
+    public void enviarEmailInformativo(Cliente cliente, String mensagem) {
+        // Lógica para enviar um email informativo para o cliente
+        System.out.println("Enviando email informativo para " + cliente.getNome() + ": " + mensagem);
     }
 }

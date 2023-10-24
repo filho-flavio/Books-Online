@@ -1,10 +1,22 @@
+import java.util.Date;
+import java.util.List;
+import java.util.ArrayList;
+
 public class Cliente extends Pessoa {
     private String email;
-    private boolean receptorDeEmail;
+    private CarrinhoDeCompras carrinho;
+    private List<Encomenda> encomendas;
 
-    public Cliente() {
-
+    public Cliente(String nome, String cpf, Date dataNascimento, String email) {
+        this.setNome(nome);
+        this.setCpf(cpf);
+        this.setDtaNascimento(dataNascimento);
+        this.setEmail(email);
+        this.carrinho = new CarrinhoDeCompras();
+        this.encomendas = new ArrayList<>();
     }
+
+    // Getters e Setters para os atributos
 
     public void setEmail(String email) {
         this.email = email;
@@ -14,21 +26,11 @@ public class Cliente extends Pessoa {
         return this.email;
     }
 
-    public void setReceptorDeEmail(boolean receptorDeEmail) {
-        this.receptorDeEmail = receptorDeEmail;
+    public CarrinhoDeCompras getCarrinho() {
+        return carrinho;
     }
 
-    public boolean getReceptorDeEmail() {
-        return this.receptorDeEmail;
-    }
-
-    public void mostrarDados() {
-        System.out.println("Dados do cliente");
-        System.out.println("------------------------------ \n");
-        System.out.println("Nome: " + this.getNome());
-        System.out.println("Data de Nascimento: " + this.getDtaNascimento());
-        System.out.println("CPF: " + this.getCpf());
-        System.out.println("Email: " + this.getEmail());
-        System.out.println("Recebe Email? " + (this.getReceptorDeEmail() ? "Sim" : "Não"));
+    public List<Encomenda> getEncomendas() {
+        return encomendas;
     }
 }

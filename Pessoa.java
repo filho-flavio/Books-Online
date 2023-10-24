@@ -1,11 +1,8 @@
+import java.util.Date;
 public class Pessoa {
-    protected String nome;
-    protected String cpf;
-    protected String dtaNascimento;
-
-    public Pessoa (){
-
-    }
+    private String nome;
+    private String cpf;
+    private Date dataNascimento;
 
     public void setNome(String nome){
         this.nome = nome;
@@ -23,11 +20,11 @@ public class Pessoa {
         return this.cpf;
     }
 
-     public void setDtaNascimento(String dtaNascimento){
-        this.dtaNascimento = dtaNascimento;
+     public void setDtaNascimento(Date dtaNascimento){
+        this.dataNascimento = dtaNascimento;
     }
 
-    public String getDtaNascimento(){
-        return this.dtaNascimento;
+    public Date getDtaNascimento(){
+        return this.dataNascimento;
     }
 }

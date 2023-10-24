@@ -1,50 +1,73 @@
+import java.util.List;
 import java.util.ArrayList;
 
-public class CarrinhoDeCompras extends Catalogo {
-    ArrayList<Livros> carrinho = new ArrayList<>();
+public class CarrinhoDeCompras {
+    private List<Livro> itensNoCarrinho;
+    private double precoTotal;
 
-    // Adicionar livro ao carrinho
-    public void adicionarAoCarrinho(Livros livro) {
-        if (temNoCatalogo(livro)) {
-            if (carrinho.contains(livro)) {
-                System.out.println("O livro já está no seu carrinho!");
-            } else {
-                carrinho.add(livro);
-                System.out.println("O livro foi adicionado com sucesso!");
-            }
-        } else {
-            System.out.println("Este livro não se encontra disponível em nossos catálogos.");
+    public CarrinhoDeCompras() {
+        this.itensNoCarrinho = new ArrayList<>();
+        this.precoTotal = 0.0;
+    }
+
+    public void adicionarItem(Livro livro) {
+        itensNoCarrinho.add(livro);
+        precoTotal += livro.getPreco();
+    }
+
+    public void removerItem(Livro livro) {
+        if (itensNoCarrinho.remove(livro)) {
+            precoTotal -= livro.getPreco();
         }
     }
 
-    public boolean temNoCatalogo(Livros livro) {
-        return this.catalogo.contains(livro);
+    public List<Livro> getItensNoCarrinho() {
+        return itensNoCarrinho;
     }
 
-    public void removerLivro(Livros livro) {
-        if (!this.carrinho.isEmpty()) {
-            carrinho.remove(livro);
-        }
-    }
-
-    public void valorTotal() {
-        double total = 0;
-        for (int i = 0; i < carrinho.size(); i++) {
-            Livros l = carrinho.get(i);
-            total += l.valor;
-        }
-        System.out.printf("Valor Total: R$ %.2f\n", total);
+    public double getPrecoTotal() {
+        return precoTotal;
     }
 
     public void mostrarCarrinho() {
-        if (!carrinho.isEmpty()) {
+        if (!itensNoCarrinho.isEmpty()) {
+            System.out.println("Itens no Carrinho:");
+            double total = 0.0;
             int contador = 1;
-            for (Livros livro : carrinho) {
-                System.out.print((contador++) + " - ");
-                livro.mostrarDetalhes();
+
+            for (Livro livro : itensNoCarrinho) {
+                System.out.println(contador);
+                livro.mostrarDetalhes(livro);
+                total += livro.getPreco();
+                contador++;
             }
+
+            System.out.println("\nTotal a pagar: R$" + total);
         } else {
             System.out.println("Seu carrinho de compras está vazio!");
         }
+    }
+
+    public Encomenda finalizarCompra() {
+        if (!itensNoCarrinho.isEmpty()) {
+            double total = 0.0;
+            for (Livro livro : itensNoCarrinho) {
+                total += livro.getPreco();
+            }
+
+            Encomenda encomenda = new Encomenda(itensNoCarrinho, total);
+
+            itensNoCarrinho.clear();
+
+            return encomenda;
+        } else {
+            System.out.println("Nenhum item encontrado para finalizar a compra!");
+            return null;
+        }
+    }
+
+    public void limparCarrinho() {
+        itensNoCarrinho.clear();
+        precoTotal = 0.0;
     }
 }
